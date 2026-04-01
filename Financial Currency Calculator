@@ -1,0 +1,36 @@
+!pip install requests 
+
+import requests
+
+print("💱 Financial Currency Calculator 💱")
+print("-" * 40)
+
+# API URL (base currency = USD)
+API_URL = "https://api.exchangerate-api.com/v4/latest/USD"
+
+# Fetch exchange rates
+response = requests.get(API_URL)
+data = response.json()
+rates = data["rates"]
+
+# Show some supported currencies
+print("\nSupported Currencies (Examples):")
+print("USD, INR, EUR, GBP, JPY, AUD, CAD, CHF, CNY")
+print("(Actually supports 150+ currencies)\n")
+
+# User input
+amount = float(input("Enter amount: "))
+from_currency = input("From Currency (e.g. USD): ").upper()
+to_currency = input("To Currency (e.g. INR): ").upper()
+
+# Validation
+if from_currency not in rates or to_currency not in rates:
+    print("❌ Invalid currency code!")
+else:
+    # Convert currency
+    usd_amount = amount / rates[from_currency]
+    converted_amount = usd_amount * rates[to_currency]
+
+    # Output
+    print("\n💰 Conversion Result:")
+    print(f"{amount} {from_currency} = {round(converted_amount, 2)} {to_currency}")
