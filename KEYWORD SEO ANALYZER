@@ -1,0 +1,76 @@
+!pip install beautifulsoup4 requests
+
+import re
+import requests
+from bs4 import BeautifulSoup
+from collections import Counter
+
+def clean_text(text):
+    text = text.lower()
+    words = re.findall(r'\b[a-z]+\b', text)
+    return words
+
+def seo_score(density):
+    if density < 0.5:
+        return 30, "❌ Weak SEO (Low keyword usage)"
+    elif 0.5 <= density <= 2.5:
+        return 90, "✅ Good SEO (Perfect keyword usage)"
+    else:
+        return 50, "⚠️ Over-Optimized (Too many keywords)"
+
+def analyze(words, keyword):
+    total_words = len(words)
+    keyword_count = words.count(keyword)
+    density = (keyword_count / total_words) * 100 if total_words else 0
+    score, verdict = seo_score(density)
+    common_words = Counter(words).most_common(10)
+
+    print("\n🔍 SEO ANALYSIS REPORT")
+    print("-" * 40)
+    print(f"Total Words       : {total_words}")
+    print(f"Target Keyword    : {keyword}")
+    print(f"Keyword Count     : {keyword_count}")
+    print(f"Keyword Density   : {density:.2f}%")
+    print(f"SEO Score         : {score}/100")
+    print(f"SEO Verdict       : {verdict}")
+
+    print("\n📊 Top 10 Keywords:")
+    for word, count in common_words:
+        print(f"{word} : {count}")
+
+def analyze_text():
+    text = input("\nPaste your text:\n")
+    keyword = input("Enter target keyword: ").lower()
+    words = clean_text(text)
+    analyze(words, keyword)
+
+def analyze_url():
+    url = input("\nEnter website URL: ")
+    keyword = input("Enter target keyword: ").lower()
+
+    headers = {"User-Agent": "Mozilla/5.0"}
+    response = requests.get(url, headers=headers)
+    soup = BeautifulSoup(response.text, "html.parser")
+    text = soup.get_text()
+
+    words = clean_text(text)
+    analyze(words, keyword)
+
+# -------- MAIN MENU --------
+while True:
+    print("\n====== KEYWORD SEO ANALYZER ======")
+    print("1. Analyze Text")
+    print("2. Analyze Website URL")
+    print("3. Exit")
+
+    choice = input("Choose an option (1/2/3): ")
+
+    if choice == "1":
+        analyze_text()
+    elif choice == "2":
+        analyze_url()
+    elif choice == "3":
+        print("✅ Exiting SEO Analyzer. Bye!")
+        break
+    else:
+        print("❌ Invalid choice, try again.")
