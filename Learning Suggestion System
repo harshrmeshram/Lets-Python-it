@@ -1,0 +1,81 @@
+def learning_path(level, goal):
+    print("\n📘 YOUR PERSONALIZED LEARNING PATHWAY\n")
+
+    if level == "beginner":
+        print("🔹 LEVEL: Beginner\n")
+        print("Phase 1: Python Basics")
+        print("- Variables, Data Types")
+        print("- If-Else, Loops")
+        print("- Functions")
+        print("- Input / Output\n")
+
+        print("Mini Projects:")
+        print("- Age Calculator")
+        print("- Calculator App")
+        print("- Alphabet Tutor")
+        print("- Dice Roll Simulator\n")
+
+    elif level == "intermediate":
+        print("🔹 LEVEL: Intermediate\n")
+        print("Phase 2: Core Python")
+        print("- Lists, Tuples, Dictionaries")
+        print("- File Handling")
+        print("- Modules & Libraries")
+        print("- Exception Handling\n")
+
+        print("Projects:")
+        print("- Quiz Game")
+        print("- Jumbled Word Game")
+        print("- Password Generator")
+        print("- Contact Book\n")
+
+    elif level == "advanced":
+        print("🔹 LEVEL: Advanced\n")
+        print("Phase 3: Advanced Python")
+        print("- APIs & Requests")
+        print("- Web Scraping")
+        print("- NLP Basics")
+        print("- Automation\n")
+
+        print("Projects:")
+        print("- Keyword SEO Analyzer")
+        print("- IP Address Tracker")
+        print("- Internet Speed Tester")
+        print("- Chatbot\n")
+
+    print("🎯 GOAL-BASED SUGGESTIONS\n")
+
+    if goal == "job":
+        print("- Focus on Data Structures & Logic")
+        print("- Build Resume Projects")
+        print("- Learn Git & GitHub")
+        print("- Practice Interview Questions")
+
+    elif goal == "internship":
+        print("- Focus on Python + Projects")
+        print("- Build Small Utilities")
+        print("- Write Clean Code")
+        print("- Create GitHub Portfolio")
+
+    elif goal == "freelancing":
+        print("- Learn APIs & Automation")
+        print("- SEO Tools, Scrapers")
+        print("- Financial Calculators")
+        print("- Web Apps using Flask")
+
+    elif goal == "college":
+        print("- Focus on End-to-End Projects")
+        print("- Add Documentation")
+        print("- Prepare PPT + Viva")
+        print("- Use Real-world Data")
+
+    print("\n🚀 NEXT STEP: Start building projects daily!\n")
+
+
+# -------- MAIN PROGRAM --------
+print("🧭 LEARNING PATHWAY GENERATOR\n")
+
+level = input("Enter your level (beginner / intermediate / advanced): ").lower()
+goal = input("Enter your goal (job / internship / freelancing / college): ").lower()
+
+learning_path(level, goal)
