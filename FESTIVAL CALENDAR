@@ -1,0 +1,87 @@
+# ===============================
+# ALL-IN-ONE FESTIVAL CALENDAR
+# ===============================
+
+# Offline festival data (India)
+festivals = {
+    "01-01": "New Year",
+    "14-01": "Makar Sankranti",
+    "26-01": "Republic Day",
+    "08-03": "Holi",
+    "22-03": "Gudi Padwa",
+    "11-04": "Ram Navami",
+    "14-04": "Dr Ambedkar Jayanti",
+    "15-08": "Independence Day",
+    "19-08": "Raksha Bandhan",
+    "07-09": "Janmashtami",
+    "02-10": "Gandhi Jayanti",
+    "12-10": "Dussehra",
+    "01-11": "Diwali",
+    "15-11": "Bhai Dooj",
+    "25-12": "Christmas"
+}
+
+# -------------------------------
+# Festival by Date
+# -------------------------------
+def festival_by_date():
+    date = input("Enter date (DD-MM): ")
+    if date in festivals:
+        print("🎉 Festival:", festivals[date])
+    else:
+        print("❌ No festival on this date")
+
+# -------------------------------
+# Festival by Month
+# -------------------------------
+def festival_by_month():
+    month = input("Enter month (MM): ")
+    found = False
+    for date, fest in festivals.items():
+        if date.split("-")[1] == month:
+            print(f"📅 {date} → 🎊 {fest}")
+            found = True
+    if not found:
+        print("❌ No festivals found in this month")
+
+# -------------------------------
+# Optional API Festival Fetch
+# -------------------------------
+def festival_api():
+    try:
+        import requests
+        api_key = input("Enter Calendarific API Key: ")
+        year = input("Enter Year (YYYY): ")
+
+        url = f"https://calendarific.com/api/v2/holidays?api_key={api_key}&country=IN&year={year}"
+        data = requests.get(url).json()
+
+        print("\n🎉 Festivals from API:\n")
+        for holiday in data["response"]["holidays"][:15]:
+            print(holiday["date"]["iso"], "-", holiday["name"])
+    except:
+        print("⚠ Error fetching festivals (check internet or API key)")
+
+# -------------------------------
+# MAIN MENU
+# -------------------------------
+while True:
+    print("\n📅 FESTIVAL CALENDAR SYSTEM")
+    print("1. Check festival by date")
+    print("2. Show festivals by month")
+    print("3. Get festivals using API (optional)")
+    print("4. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        festival_by_date()
+    elif choice == "2":
+        festival_by_month()
+    elif choice == "3":
+        festival_api()
+    elif choice == "4":
+        print("🙏 Thank you for using Festival Calendar")
+        break
+    else:
+        print("❌ Invalid choice, try again")
