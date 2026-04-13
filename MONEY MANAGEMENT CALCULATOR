@@ -1,0 +1,77 @@
+# ===============================
+# MONEY MANAGEMENT CALCULATOR
+# ===============================
+
+income_list = []
+expense_list = []
+
+# -------------------------------
+# Add Income
+# -------------------------------
+def add_income():
+    amount = float(input("Enter income amount: ₹ "))
+    source = input("Enter income source: ")
+    income_list.append((source, amount))
+    print("✅ Income added successfully")
+
+# -------------------------------
+# Add Expense
+# -------------------------------
+def add_expense():
+    amount = float(input("Enter expense amount: ₹ "))
+    category = input("Enter expense category: ")
+    expense_list.append((category, amount))
+    print("✅ Expense added successfully")
+
+# -------------------------------
+# Show Summary
+# -------------------------------
+def show_summary():
+    total_income = sum(i[1] for i in income_list)
+    total_expense = sum(e[1] for e in expense_list)
+    savings = total_income - total_expense
+
+    print("\n📊 FINANCIAL SUMMARY")
+    print("---------------------")
+    print("Total Income  : ₹", total_income)
+    print("Total Expense : ₹", total_expense)
+    print("Savings       : ₹", savings)
+
+# -------------------------------
+# Show Detailed Report
+# -------------------------------
+def detailed_report():
+    print("\n💵 INCOME DETAILS")
+    for i in income_list:
+        print("-", i[0], ": ₹", i[1])
+
+    print("\n💸 EXPENSE DETAILS")
+    for e in expense_list:
+        print("-", e[0], ": ₹", e[1])
+
+# -------------------------------
+# MAIN MENU
+# -------------------------------
+while True:
+    print("\n💰 MONEY MANAGEMENT SYSTEM")
+    print("1. Add Income")
+    print("2. Add Expense")
+    print("3. Show Summary")
+    print("4. Detailed Report")
+    print("5. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        add_income()
+    elif choice == "2":
+        add_expense()
+    elif choice == "3":
+        show_summary()
+    elif choice == "4":
+        detailed_report()
+    elif choice == "5":
+        print("🙏 Thank you for using Money Manager")
+        break
+    else:
+        print("❌ Invalid choice, try again")
