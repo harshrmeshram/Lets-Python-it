@@ -1,0 +1,110 @@
+import datetime
+
+# File names
+HABIT_FILE = "habits.txt"
+TODO_FILE = "todo.txt"
+TIMETABLE_FILE = "timetable.txt"
+
+# ---------------- HABIT TRACKER ----------------
+def add_habit():
+    habit = input("Enter habit name: ")
+    with open(HABIT_FILE, "a") as f:
+        f.write(f"{habit}|Not Done\n")
+    print("Habit added ✅")
+
+def view_habits():
+    print("\nYour Habits:")
+    try:
+        with open(HABIT_FILE, "r") as f:
+            for i, line in enumerate(f, 1):
+                habit, status = line.strip().split("|")
+                print(f"{i}. {habit} - {status}")
+    except FileNotFoundError:
+        print("No habits found.")
+
+def complete_habit():
+    view_habits()
+    num = int(input("Enter habit number to mark completed: "))
+    with open(HABIT_FILE, "r") as f:
+        lines = f.readlines()
+    habit, _ = lines[num-1].strip().split("|")
+    lines[num-1] = f"{habit}|Done\n"
+    with open(HABIT_FILE, "w") as f:
+        f.writelines(lines)
+    print("Habit marked as Done ✅")
+
+# ---------------- TODO LIST ----------------
+def add_todo():
+    task = input("Enter task: ")
+    with open(TODO_FILE, "a") as f:
+        f.write(f"{task}|Pending\n")
+    print("Task added ✅")
+
+def view_todo():
+    print("\nYour To-Do List:")
+    try:
+        with open(TODO_FILE, "r") as f:
+            for i, line in enumerate(f, 1):
+                task, status = line.strip().split("|")
+                print(f"{i}. {task} - {status}")
+    except FileNotFoundError:
+        print("No tasks found.")
+
+def complete_todo():
+    view_todo()
+    num = int(input("Enter task number to complete: "))
+    with open(TODO_FILE, "r") as f:
+        lines = f.readlines()
+    task, _ = lines[num-1].strip().split("|")
+    lines[num-1] = f"{task}|Completed\n"
+    with open(TODO_FILE, "w") as f:
+        f.writelines(lines)
+    print("Task completed ✅")
+
+# ---------------- TIMETABLE ----------------
+def add_timetable():
+    time = input("Enter time (e.g. 7:00 AM): ")
+    work = input("Enter activity: ")
+    with open(TIMETABLE_FILE, "a") as f:
+        f.write(f"{time} - {work}\n")
+    print("Timetable entry added ✅")
+
+def view_timetable():
+    print("\nYour Daily Timetable:")
+    try:
+        with open(TIMETABLE_FILE, "r") as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("No timetable found.")
+
+# ---------------- MAIN MENU ----------------
+def main():
+    while True:
+        print("\n📅 HABIT + TODO + TIMETABLE MANAGER")
+        print("1. Add Habit")
+        print("2. View Habits")
+        print("3. Complete Habit")
+        print("4. Add To-Do")
+        print("5. View To-Do")
+        print("6. Complete To-Do")
+        print("7. Add Timetable")
+        print("8. View Timetable")
+        print("9. Exit")
+
+        choice = input("Choose option: ")
+
+        if choice == "1": add_habit()
+        elif choice == "2": view_habits()
+        elif choice == "3": complete_habit()
+        elif choice == "4": add_todo()
+        elif choice == "5": view_todo()
+        elif choice == "6": complete_todo()
+        elif choice == "7": add_timetable()
+        elif choice == "8": view_timetable()
+        elif choice == "9":
+            print("Goodbye 👋 Stay productive!")
+            break
+        else:
+            print("Invalid choice ❌")
+
+main()
